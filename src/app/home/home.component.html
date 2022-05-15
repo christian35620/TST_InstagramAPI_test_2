@@ -1,33 +1,81 @@
 ﻿<h2>You're logged in with Angular 13 & Facebook!!</h2>
 <p>All accounts from secure api end point:</p>
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Facebook Id</th>
-            <th>Name</th>
-            <th>Extra Info</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let account of accounts">
-            <td>{{account.id}}</td>
-            <td>{{account.facebookId}}</td>
-            <td>{{account.name}}</td>
-            <td>{{account.extraInfo}}</td>
-            <td class="text-right" style="white-space: nowrap">
-                <a routerLink="edit/{{account.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                <button (click)="deleteAccount(account.id)" class="btn btn-sm btn-danger btn-delete-account" [disabled]="account.isDeleting">
-                    <span *ngIf="account.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!account.isDeleting">Delete</span>
-                </button>
-            </td>
-        </tr>
-        <tr *ngIf="!accounts">
-            <td colspan="5" class="text-center">
-                <span class="spinner-border spinner-border-lg align-center"></span>
-            </td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Facebook Id</th>
+      <th>Name</th>
+      <th>Extra Info</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let account of accounts">
+      <td>{{account.id}}</td>
+      <td>{{account.facebookId}}</td>
+      <td>{{account.name}}</td>
+      <td>{{account.extraInfo}}</td>
+      <td class="text-right" style="white-space: nowrap">
+        <a routerLink="edit/{{account.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+        <button (click)="deleteAccount(account.id)" class="btn btn-sm btn-danger btn-delete-account"
+          [disabled]="account.isDeleting">
+          <span *ngIf="account.isDeleting" class="spinner-border spinner-border-sm"></span>
+          <span *ngIf="!account.isDeleting">Delete</span>
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="!accounts">
+      <td colspan="5" class="text-center">
+        <span class="spinner-border spinner-border-lg align-center"></span>
+      </td>
+    </tr>
+  </tbody>
 </table>
+
+<!-- uncomment this section if manual testing required -->
+<!-- <button (click)="getOwnIgBusinessAccountId()" class="btn btn-danger mt-3 mb-5 btn-block">
+  Get IG Business Account Id
+</button> -->
+
+<form autocomplete="off" [formGroup]="forma">
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Ig Account</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="accountsToSearch">
+          <tr *ngFor="let control of accountsToSearch.controls; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <input type="text" class="form-control" [formControlName]="i"
+                [class.is-invalid]="control.invalid && control.touched" />
+              <small *ngIf="control.invalid && control.touched" class="text-danger">Ingrese un correo valido</small>
+            </td>
+            <td>
+              <button (click)="removeAccountToSearch(i)" class="btn btn-danger">
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="addAccountToSearch()" class="btn btn-primary mt-3 mb-5 btn-block">+Add</button>
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col">
+      <button (click)="getThirdPartyIgAccountsInfo()" class="btn btn-outline-primary btn-block">
+        Search
+      </button>
+      <small *ngIf="accountsToSearchInvalid" class="text-danger">Please fill all required fields</small>
+    </div>
+  </div>
+</form>

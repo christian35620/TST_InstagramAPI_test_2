@@ -1,6 +1,6 @@
 ﻿import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // used to create fake backend
@@ -16,6 +16,7 @@ import { LoginComponent } from './login';
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule

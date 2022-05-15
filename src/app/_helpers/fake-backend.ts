@@ -4,7 +4,7 @@ import { Observable, of, throwError, from } from 'rxjs';
 import { delay, materialize, dematerialize, concatMap } from 'rxjs/operators';
 
 // array in local storage for accounts
-const accountsKey = 'angular-10-facebook-login-accounts';
+const accountsKey = 'angular-13-facebook-login-accounts';
 let accounts = JSON.parse(localStorage.getItem(accountsKey)) || [];
 
 @Injectable()
@@ -39,7 +39,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             const { accessToken } = body;
 
             return from(new Promise(resolve => {
-                fetch(`https://graph.facebook.com/v8.0/me?access_token=${accessToken}`)
+                fetch(`https://graph.facebook.com/v13.0/me?access_token=${accessToken}`)
                     .then(response => resolve(response.json()));
             })).pipe(concatMap((data: any) => {
                 if (data.error) return unauthorized(data.error.message);

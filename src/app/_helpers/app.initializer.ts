@@ -9,7 +9,7 @@ export function appInitializer(accountService: AccountService) {
                 appId: environment.facebookAppId,
                 cookie: true,
                 xfbml: true,
-                version: 'v8.0'
+                version: 'v13.0'
             });
 
             // auto authenticate with the api if already logged in with facebook
